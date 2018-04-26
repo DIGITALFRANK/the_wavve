@@ -1,5 +1,10 @@
 
 class Tag < ActiveRecord::Base
-    has_many :posts_tags
-    has_many :posts, through: :posts_tags
+    has_many :subtags
+
+    has_many :poststags
+    has_many :posts, through: :poststags
+
+    has_many :postssubtags
+    has_many :subtags, through: :postssubtags    
 end
