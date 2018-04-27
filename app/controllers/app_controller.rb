@@ -1,4 +1,15 @@
 
+######## TO DO
+
+# 1 - user registration
+# 2 - user create post (only while logged in) (remember post tags and subtags - maybe you should seed a few)
+# 3 - post pages views and layouts
+
+
+
+
+
+
 require 'sinatra'
 require 'sinatra/activerecord'
 
@@ -35,7 +46,14 @@ end
 
 
 
+# user login
+# get '/sessions/login' do
+#     erb :"sessions/login"
+# end 
 
+# post '/user/logged/in' do
+#     erb :"users/home"
+# end
 
 
 
@@ -50,13 +68,35 @@ end
 
 
 
-# (R) read - user profile & posts feed
+# (C) create new posts
+# get '/???' do
+#     erb :"???"
+# end 
+
+# post '/???' do
+#     erb :"???"
+# end
+
+
+
+# (R) read - user profile & posts feed - logout button
 get '/sessions/login' do
     erb :"sessions/login"
 end 
 
 post '/user/logged/in' do
-    erb :"users/home"
+    @current_user = User.find_by(email: params[:email], password: params[:password])
+    if @current_user != nil
+        session[:id] = @current_user.id
+        erb :"users/home"
+    else   
+        erb :"sessions/err_login"
+    end
+end
+
+post '/user/logged/out' do
+    session.clear
+    redirect "/"
 end
 
 
