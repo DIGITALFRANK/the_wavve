@@ -5,6 +5,14 @@
 # 2 - implement bootstrap for layout and responsiveness
 # 3 - user create post (only while logged in) (remember post tags and subtags - maybe you should seed a few)
 # 4 - user home page / post pages views and layouts - make sure you can list posts and users based on tags, subtags, and user industry => a given tag should belong to 1 industry, 1 industry has many tags => a subtag belongs to a 1 tag (which already belongs to 1 industry), 1 tag can have many subtags
+
+        # a - you can pull & list all users
+        # b - you can pull & list users by their industry
+        # a - you can pull & list all users
+        # a - you can pull & list all users
+
+
+
 # 5 - pretty it up - scss for layouts, theme etc... responsivness  => are you using a framework? you should for good practice
 
 # lastly - form validation
@@ -46,6 +54,24 @@ end
 # landing
 get '/' do
     @users = User.all
+    @design_users = User.where("industry = 'design'")
+    @tech_users = User.where("industry = 'tech'")
+    @advertising_users = User.where(["industry = :industry", { industry: "Advertising" }])
+
+    puts '***********'
+    puts @advertising_users.inspect.inspect
+    puts '$$$$$$$$'
+
+    @users.each do |user| 
+        puts user.first_name    
+    end 
+
+    @advertising_users.each do |user| 
+        puts user.first_name  
+        puts user.last_name  
+        puts user.email  
+    end 
+
 
     if session[:id] != nil
         erb :"users/home"
@@ -53,6 +79,8 @@ get '/' do
         erb :"users/index"
     end
 end 
+
+
 
 
 
@@ -88,11 +116,9 @@ post '/user/logged/in' do
     if @current_user != nil
         session[:id] = @current_user.id
 
-        # erb :site_layout, :layout => false do
             erb :loggedin_layout do
               erb :"users/home"
             end
-        # end
 
 
         # erb :"users/home"
