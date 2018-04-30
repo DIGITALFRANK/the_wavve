@@ -36,7 +36,7 @@ require_relative '../models/postssubtags'
 
 
 # the database
-set :database, {adapter: 'postgresql', database: 'the_wavve'}
+# set :database, {adapter: 'postgresql', database: 'the_wavve'}
 
 
 # live sessions with shotgun, and set explicit views folder, make stylesheet static
