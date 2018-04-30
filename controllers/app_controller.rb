@@ -51,6 +51,7 @@ end
 
 ##################### APPLICATION ROUTES ######################
 
+
 # landing
 get '/' do
     @users = User.all
