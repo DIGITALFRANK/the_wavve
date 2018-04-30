@@ -16,7 +16,9 @@ ActiveRecord::Schema.define(version: 2018_04_26_220417) do
   enable_extension "plpgsql"
 
   create_table "posts", force: :cascade do |t|
-    t.string "media_url"
+    t.string "img_url"
+    t.string "title"
+    t.string "subtitle"
     t.string "text_content"
     t.integer "user_id"
   end
@@ -48,6 +50,7 @@ ActiveRecord::Schema.define(version: 2018_04_26_220417) do
     t.string "title"
     t.string "email"
     t.string "password"
+    t.string "profile_img_url"
   end
 
 end

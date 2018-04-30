@@ -1,0 +1,50 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    overflow: none;
+}
+
+main {
+    padding-top: 200px;
+}
+
+
+.users {
+    width: 25%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    background: #444;
+    overflow: hidden;
+}
+
+.user_info {
+    width: 20%;
+    height: 50px;
+    position: fixed;
+    top: 25px;
+    right: 25px;
+    z-index: 10;
+    background: #999;
+}
+
+.articles {
+    width: 75%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    margin-left: 25%;
+    padding: 25px;
+    padding-top: 200px;
+    // background: #000;
+    z-index: -1;
+    overflow-Y: scroll;
+}
+

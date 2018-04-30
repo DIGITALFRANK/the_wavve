@@ -1,9 +1,12 @@
 
 ######## TO DO
 
-# 1 - user create post (only while logged in) (remember post tags and subtags - maybe you should seed a few)
-# 2 - user home page / post pages views and layouts - make sure you can list posts and users based on tags, subtags, and user industry => a given tag should belong to 1 industry, 1 industry has many tags => a subtag belongs to a 1 tag (which already belongs to 1 industry), 1 tag can have many subtags
-# 4 - pretty it up - scss for layouts, theme etc... responsivness  => are you using a framework? you should for good practice
+# 1 - create double nested layout for when users are logged in
+# 2 - implement bootstrap for layout and responsiveness
+# 3 - user create post (only while logged in) (remember post tags and subtags - maybe you should seed a few)
+# 4 - user home page / post pages views and layouts - make sure you can list posts and users based on tags, subtags, and user industry => a given tag should belong to 1 industry, 1 industry has many tags => a subtag belongs to a 1 tag (which already belongs to 1 industry), 1 tag can have many subtags
+# 5 - pretty it up - scss for layouts, theme etc... responsivness  => are you using a framework? you should for good practice
+
 # lastly - form validation
 
 
@@ -19,6 +22,8 @@ require_relative '../models/user'
 require_relative '../models/post'
 require_relative '../models/tag'
 require_relative '../models/poststags'
+require_relative '../models/subtags'
+require_relative '../models/postssubtags'
 
 
 
@@ -26,13 +31,14 @@ require_relative '../models/poststags'
 set :database, {adapter: 'postgresql', database: 'the_wavve'}
 
 
-# live sessions with shotgun, and set explicit views folder
+# live sessions with shotgun, and set explicit views folder, make stylesheet static
 configure do
     enable :sessions unless test?
     set :session_secret, "secret"
     set :views, "./views"
+    set :public_folder, "./public"
 end
-
+# Proc.new { 'source.css'.join(root, "static") }
 
 
 ##################### APPLICATION ROUTES ######################
@@ -41,7 +47,11 @@ end
 get '/' do
     @users = User.all
 
-    erb :"users/index"
+    if session[:id] != nil
+        erb :"users/home"
+    else
+        erb :"users/index"
+    end
 end 
 
 
@@ -68,17 +78,6 @@ end
 
 
 
-# (C) create new posts
-# get '/???' do
-#     erb :"???"
-# end 
-
-# post '/???' do
-#     erb :"???"
-# end
-
-
-
 # (R) read - user profile & posts feed - logout button
 get '/sessions/login' do
     erb :"sessions/login"
@@ -88,7 +87,15 @@ post '/user/logged/in' do
     @current_user = User.find_by(email: params[:email], password: params[:password])
     if @current_user != nil
         session[:id] = @current_user.id
-        erb :"users/home"
+
+        # erb :site_layout, :layout => false do
+            erb :loggedin_layout do
+              erb :"users/home"
+            end
+        # end
+
+
+        # erb :"users/home"
     else   
         erb :"sessions/err_login"
     end
@@ -101,15 +108,41 @@ end
 
 
 
+
+# (C) create new posts
+
+post '/post/new' do
+    @post = Post.create(img_url: params[:img_url], title: params[:title], subtitle: params[:subtitle], text_content: params[:text_content], user_id: session[:id])
+    
+    puts session[:id]
+
+    erb :loggedin_layout do
+        erb :"posts/post"
+    end
+end
+
+
+
+
+# (R) read specific post
+
+get '/post/:id' do 
+    @post = Post.find(params[:id])
+    erb :"posts/post"
+end
+
+
+
+
 # (U) update post using a POST method form  => check erb file
 get '/post/:id/edit' do 
     @post_id = params[:id]
-    @post = Student.find(params[:id])
+    @post = Post.find(params[:id])
     erb :edit_post
 end
 
 put '/post/:id' do
-    @post = Student.find(params[:id])
+    @post = Post.find(params[:id])
     @post.update(img_url: params[:img_url], text_content: params[:text_content])
 end
 

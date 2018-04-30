@@ -1,0 +1,30 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link rel="stylesheet" type="text/css" href='/scss/source.css'/>
+</head>
+<body>
+    <header>
+        <h1>the wavve</h1>
+        <nav>
+            <ul class="nav_links">
+                <li><a href="users/home">home</a></li>
+                <li><a href="/the wavve">the wavve</a></li>
+                <li><a href="/design">design</a></li>
+                <li><a href="/tech">tech</a></li>
+                <li><a href="/advertising">advertising</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <%= yield %>
+    </main>
+
+<!-- scripts -->
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script type="text/javascript" src="JS/main.js"></script>
+</body>
+<html>

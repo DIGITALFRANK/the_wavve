@@ -1,0 +1,11 @@
+
+footer {
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    font-size: .75em;
+    text-align: center;
+    padding: 10px;
+    background: rgba($color: #fff, $alpha: .6);
+    z-index: 1000;
+}

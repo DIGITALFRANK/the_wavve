@@ -1,0 +1,46 @@
+
+.create_post {
+    width: 100vw;
+    height: 110vh;
+    position: absolute;
+    top: 90vh;
+    background: darkviolet;
+    z-index: 100;
+}
+
+.new_post {
+    display: inline-block;
+    width: 49%;
+    height: 10vh;
+    text-align: center;
+    padding: 3vh;
+}
+
+.search_articles {
+    display: inline-block;
+    width: 50%;
+    height: 10vh;
+    text-align: center;
+    padding: 3vh;
+    background: tomato;
+
+}
+
+#post_form_img_url {
+    width: 90%;
+    padding: 10px;
+    margin-left: 5%;
+    margin-top: 25px;
+}
+
+#post_form_text_area {
+    width: 90%;
+    height: 40vh;
+    margin: 0 auto;
+    margin-left: 5%;
+    margin-top: 25px;
+    .label {
+        margin-left: 5%;
+        margin-left: 25px;
+    }
+}
