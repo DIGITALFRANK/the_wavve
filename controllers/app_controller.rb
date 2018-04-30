@@ -52,7 +52,7 @@ end
 ##################### APPLICATION ROUTES ######################
 
 # landing
-get '/' do
+get './' do
     @users = User.all
     @design_users = User.where("industry = 'design'")
     @tech_users = User.where("industry = 'tech'")
@@ -85,11 +85,11 @@ end
 
 
 # (C) create new users
-get '/registration/signup' do
+get './registration/signup' do
     erb :"registration/signup"
 end 
 
-post '/registration/new' do
+post './registration/new' do
     if params[:first_name] && params[:last_name] && params[:industry] && params[:title] && params[:email] && params[:password] != ''
         User.create(first_name: params[:first_name], last_name: params[:last_name], industry: params[:industry], title: params[:title], email: params[:email], password: params[:password])
         @current_user = User.find_by(email: params[:email], password: params[:password])
@@ -107,7 +107,7 @@ end
 
 
 # (R) read - user profile & posts feed - logout button
-get '/sessions/login' do
+get './sessions/login' do
     erb :"sessions/login"
 end 
 
@@ -127,7 +127,7 @@ post '/user/logged/in' do
     end
 end
 
-post '/user/logged/out' do
+post './user/logged/out' do
     session.clear
     redirect "/"
 end
@@ -137,7 +137,7 @@ end
 
 # (C) create new posts
 
-post '/post/new' do
+post './post/new' do
     @post = Post.create(img_url: params[:img_url], title: params[:title], subtitle: params[:subtitle], text_content: params[:text_content], user_id: session[:id])
     
     puts session[:id]
@@ -152,7 +152,7 @@ end
 
 # (R) read specific post
 
-get '/post/:id' do 
+get './post/:id' do 
     @post = Post.find(params[:id])
     erb :"posts/post"
 end
@@ -161,13 +161,13 @@ end
 
 
 # (U) update post using a POST method form  => check erb file
-get '/post/:id/edit' do 
+get './post/:id/edit' do 
     @post_id = params[:id]
     @post = Post.find(params[:id])
     erb :edit_post
 end
 
-put '/post/:id' do
+put './post/:id' do
     @post = Post.find(params[:id])
     @post.update(img_url: params[:img_url], text_content: params[:text_content])
 end
@@ -175,7 +175,7 @@ end
 
 
 # (D) Delete post
-delete '/post/:id' do
+delete './post/:id' do
     @post_id = params[:id]
     Post.destroy(@post_id)
 end
