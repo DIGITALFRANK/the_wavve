@@ -1,0 +1,8 @@
+
+  development:
+  adapter: postgresql
+  database: doggydaycare #or whatever your db is called
+
+  production:
+  adapter: postgresql
+  host: <%= ENV['DATABASE_URL'] %> 

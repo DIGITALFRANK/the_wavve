@@ -10,9 +10,24 @@
 </br>
 
 <% @users.each do |user| %>
-<h2><%=  user.first_name  %></h2>
-<h2><%=  user.last_name  %></h2>
-<h2><%=  user.email  %></h2>
+    <h2><%=  user.first_name  %></h2>
+    <h2><%=  user.last_name  %></h2>
+    <h2><%=  user.email  %></h2>
+    </br>
+    </br>
+<% end %>
+
+
 </br>
 </br>
+</br>
+</br>
+
+
+<% @advertising_users.each do |user| %>
+    <h2><%=  user.first_name  %></h2>
+    <h2><%=  user.last_name  %></h2>
+    <h2><%=  user.email  %></h2>
+    </br>
+    </br>
 <% end %>
