@@ -1,7 +1,7 @@
 
   development:
   adapter: postgresql
-  database: doggydaycare #or whatever your db is called
+  database: the_wavve
 
   production:
   adapter: postgresql
