@@ -1,0 +1,52 @@
+button {
+    cursor: pointer;
+    outline: none;
+    border: none;
+    &:active, &:focus {
+        outline: none;
+        border: none;
+    }
+}
+
+.signup {
+    padding:10px; 
+    padding-left:20px; 
+    padding-right:20px; 
+    margin-left:20px; 
+    border-radius: 25px; 
+    color: #fff; 
+    background: green;
+}
+
+.login {
+    padding:10px; 
+    padding-left:20px; 
+    padding-right:20px; 
+    margin-left:20px; 
+    border-radius: 25px; 
+    color: #fff; 
+    background: orange;
+}
+
+.logout_button {
+    position: fixed;
+    top: 35px;
+    left: 25px;
+    padding:10px;
+    padding-left:20px;
+    padding-right:20px;
+    border-radius: 25px;
+    color: #fff;
+    background: red;
+    z-index: 10;
+}
+
+.create_post_button {
+    padding:10px;
+    padding-left:20px;
+    padding-right:20px;
+    margin-left:5%;
+    border-radius:25px;
+    color: #fff;
+    background: green;
+}

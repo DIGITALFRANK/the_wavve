@@ -1,0 +1,44 @@
+
+<div class="logout">
+    <form action="/user/logged/out" method="POST">
+        <button class="logout_button" type="submit">logout</button>
+    </form>
+</div>
+
+<div class="user_info">
+</div>
+
+<aside class="users">
+</aside>
+
+<section class="articles">
+    <%=  yield  %>
+</section>
+
+
+<section class="create_post">
+    <div class="new_post">write an article</div>
+    <div class="search_articles">search articles</div>
+
+    <form id="new_post_form" action="/post/new" method="POST">
+        <div class="label">img_url:</div> 
+        </br>
+        <input id="post_form_img_url" type="text" name="img_url" placeholder="path to your article's image">
+        </br>
+        <div class="label">title:</div> 
+        </br>
+        <input id="post_form_img_url" type="text" name="title" placeholder="">
+        </br>
+        <div class="label">subtitle:</div> 
+        </br>
+        <input id="post_form_img_url" type="text" name="subtitle" placeholder="">
+        </br>
+        </br>
+        <div class="label">your article:</div class="label">
+        </br>
+        <textarea name="text_content" id="post_form_text_area"></textarea>
+        <button class="create_post_button" type="submit">publish article</button>
+    </form>
+
+</section>
+

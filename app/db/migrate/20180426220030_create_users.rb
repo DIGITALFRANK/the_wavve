@@ -8,6 +8,7 @@ class CreateUsers < ActiveRecord::Migration[5.2]
       t.string :title
       t.string :email
       t.string :password
+      t.string :profile_img_url
     end
   end
 end
