@@ -91,7 +91,7 @@ end
 
 
 
-# nav
+# users
 
 get '/home' do
     @current_user = User.find_by(id: session[:id])
@@ -108,6 +108,28 @@ get '/home' do
         erb :"sessions/login"
     end
 end 
+
+get '/profile' do
+    @current_user = User.find_by(id: session[:id])
+    if @current_user != nil
+        # session[:id] = @current_user.id
+
+            erb :loggedin_layout do
+              erb :"users/profile"
+            end
+
+
+        # erb :"users/home"
+    else   
+        erb :"sessions/login"
+    end
+end 
+
+delete '/users/:id' do |id|
+    @user_id = params[:id]
+    User.destroy(@user_id)
+    redirect "sessions/login"
+end
 
 
 
