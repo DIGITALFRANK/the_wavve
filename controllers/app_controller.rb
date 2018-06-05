@@ -88,6 +88,33 @@ end
 
 
 
+
+
+
+# nav
+
+get '/home' do
+    @current_user = User.find_by(id: session[:id])
+    if @current_user != nil
+        # session[:id] = @current_user.id
+
+            erb :loggedin_layout do
+              erb :"users/home"
+            end
+
+
+        # erb :"users/home"
+    else   
+        erb :"sessions/login"
+    end
+end 
+
+
+
+
+
+
+
 # (C) create new users
 get '/registration/signup' do
     erb :"registration/signup"
@@ -99,7 +126,9 @@ post '/registration/new' do
         @current_user = User.find_by(email: params[:email], password: params[:password])
         if @current_user != nil
             session[:id] = @current_user.id
-            erb :"users/home"
+            erb :loggedin_layout do
+                erb :"users/home"
+            end
         else   
             erb :"registration/err_signup"
         end
@@ -137,24 +166,6 @@ post '/user/logged/out' do
 end
 
 
-
-# users
-
-get '/home' do
-    @current_user = User.find_by(id: session[:id])
-    if @current_user != nil
-        # session[:id] = @current_user.id
-
-            erb :loggedin_layout do
-              erb :"users/home"
-            end
-
-
-        # erb :"users/home"
-    else   
-        erb :"sessions/login"
-    end
-end 
 
 
 
