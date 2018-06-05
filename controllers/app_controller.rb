@@ -52,11 +52,17 @@ end
 # Proc.new { 'source.css'.join(root, "static") }
 
 
+# make all users available globally
+@users = User.all
+
+
+
 ##################### APPLICATION ROUTES ######################
 
 
 # landing
 get '/' do
+    # make all users available globally
     @users = User.all
     @design_users = User.where("industry = 'design'")
     @tech_users = User.where("industry = 'tech'")
@@ -94,6 +100,9 @@ end
 # users
 
 get '/home' do
+    # make all users available globally
+    @users = User.all
+
     @current_user = User.find_by(id: session[:id])
     if @current_user != nil
         # session[:id] = @current_user.id
@@ -110,6 +119,9 @@ get '/home' do
 end 
 
 get '/profile' do
+    # make all users available globally
+    @users = User.all
+    
     @current_user = User.find_by(id: session[:id])
     if @current_user != nil
         # session[:id] = @current_user.id
@@ -134,6 +146,46 @@ end
 
 
 
+get '/the_wavve' do
+    # make all users available globally
+    @users = User.all
+    
+    @current_user = User.find_by(id: session[:id])
+    @user_posts = Post.where(:user_id => @current_user.id)
+    if @current_user != nil
+        # session[:id] = @current_user.id
+
+            erb :loggedin_layout do
+              erb :"users/the_wavve"
+            end
+
+
+        # erb :"users/home"
+    else   
+        erb :"sessions/login"
+    end
+end 
+
+get '/the_wavve/:id' do
+    # make all users available globally
+    @users = User.all
+    
+    @current_user = User.find_by(id: session[:id])
+    @user_posts = Post.where(:user_id => params[:id])
+    if @current_user != nil
+        # session[:id] = @current_user.id
+
+            erb :loggedin_layout do
+              erb :"users/the_wavve"
+            end
+
+
+        # erb :"users/home"
+    else   
+        erb :"sessions/login"
+    end
+end 
+
 
 
 
@@ -143,6 +195,9 @@ get '/registration/signup' do
 end 
 
 post '/registration/new' do
+    # make all users available globally
+    @users = User.all
+    
     if params[:first_name] && params[:last_name] && params[:industry] && params[:title] && params[:email] && params[:password] != ''
         User.create(first_name: params[:first_name], last_name: params[:last_name], industry: params[:industry], title: params[:title], email: params[:email], password: params[:password])
         @current_user = User.find_by(email: params[:email], password: params[:password])
@@ -152,10 +207,10 @@ post '/registration/new' do
                 erb :"users/home"
             end
         else   
-            erb :"registration/err_signup"
+            erb :"registration/signup"
         end
     else
-        erb :"registration/err_signup"
+        erb :"registration/signup"
     end
 end
 
@@ -167,6 +222,10 @@ get '/sessions/login' do
 end 
 
 post '/user/logged/in' do
+    # make all users available globally
+    @users = User.all
+    
+
     @current_user = User.find_by(email: params[:email], password: params[:password])
     if @current_user != nil
         session[:id] = @current_user.id
@@ -178,7 +237,7 @@ post '/user/logged/in' do
 
         # erb :"users/home"
     else   
-        erb :"sessions/err_login"
+        erb :"sessions/login"
     end
 end
 
@@ -191,9 +250,23 @@ end
 
 
 
+# (R) read specific post
+
+get '/posts/:id' do 
+    @post = Post.find(params[:id])
+    erb :"posts/post"
+end
+
+
+
+
 # (C) create new posts
 
 post '/post/new' do
+    # make all users available globally
+    @users = User.all
+    
+
     @post = Post.create(img_url: params[:img_url], title: params[:title], subtitle: params[:subtitle], text_content: params[:text_content], user_id: session[:id])
     
     puts session[:id]
@@ -201,16 +274,8 @@ post '/post/new' do
     erb :loggedin_layout do
         erb :"posts/post"
     end
-end
 
-
-
-
-# (R) read specific post
-
-get '/post/:id' do 
-    @post = Post.find(params[:id])
-    erb :"posts/post"
+    redirect "posts/#{@post.id}"
 end
 
 
