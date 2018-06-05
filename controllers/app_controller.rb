@@ -1,15 +1,18 @@
 
 ######## TO DO
 
-# 1 - create double nested layout for when users are logged in
+# 1 - create double nested layout for when users are logged in - connectivity available, but focus on articles => maybe give user the option of closing connections panel
 # 2 - implement bootstrap for layout and responsiveness
 # 3 - user create post (only while logged in) (remember post tags and subtags - maybe you should seed a few)
 # 4 - user home page / post pages views and layouts - make sure you can list posts and users based on tags, subtags, and user industry => a given tag should belong to 1 industry, 1 industry has many tags => a subtag belongs to a 1 tag (which already belongs to 1 industry), 1 tag can have many subtags
 
-        # a - you can pull & list all users
-        # b - you can pull & list users by their industry
-        # a - you can pull & list all users
-        # a - you can pull & list all users
+        # a - you can pull & list all users => User.all
+        # b - you can pull & list users by their industry => industry_users.all
+        # c - you can pull & list all posts => Posts.all
+        # d - you can pull & list posts by user => Users.posts
+        # d - you can pull & list posts by the tag => Tag.posts
+        # e - you can pull & list posts by the subtag => Subtag.posts
+        # f - users can search tags and users by keyword (tag, subtag, and user name to start)
 
 
 
@@ -133,6 +136,25 @@ post '/user/logged/out' do
     redirect "/"
 end
 
+
+
+# users
+
+get '/home' do
+    @current_user = User.find_by(id: session[:id])
+    if @current_user != nil
+        # session[:id] = @current_user.id
+
+            erb :loggedin_layout do
+              erb :"users/home"
+            end
+
+
+        # erb :"users/home"
+    else   
+        erb :"sessions/login"
+    end
+end 
 
 
 

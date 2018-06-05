@@ -30,14 +30,14 @@ button {
 
 .logout_button {
     position: fixed;
-    top: 35px;
+    top: 15px;
     left: 25px;
-    padding:10px;
+    padding:7px;
     padding-left:20px;
     padding-right:20px;
     border-radius: 25px;
     color: #fff;
-    background: red;
+    background: #000;
     z-index: 10;
 }
 
@@ -46,7 +46,10 @@ button {
     padding-left:20px;
     padding-right:20px;
     margin-left:5%;
+    margin-top:25px;
     border-radius:25px;
     color: #fff;
     background: green;
+    clear: both;
+    display: block;
 }

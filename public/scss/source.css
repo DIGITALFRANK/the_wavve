@@ -3541,7 +3541,7 @@ main {
   top: 0;
   left: 0;
   z-index: -1;
-  background: #444;
+  background: #e6e5e5;
   overflow: hidden;
 }
 
@@ -3553,6 +3553,7 @@ main {
   right: 25px;
   z-index: 10;
   background: #999;
+  display: none;
 }
 
 .articles {
@@ -3563,30 +3564,48 @@ main {
   margin-left: 25%;
   padding: 25px;
   padding-top: 200px;
+  padding-bottom: 200px;
   z-index: -1;
   overflow-Y: scroll;
 }
 
 body {
-  font-family: 'Lato', 'Arial Narrow', Arial, sans-serif;
+  font-family: 'Quicksand', 'helvetica', sans-serif;
 }
 
 a {
   text-decoration: none;
+  color: #444;
+}
+
+h1 {
+  font-size: 2.5em;
+}
+
+h2 {
+  font-size: 1.5em;
+}
+
+header * {
+  display: inline;
 }
 
 header {
   width: 100%;
   position: fixed;
   top: 0;
-  background: #000;
+  background: #d1d0d0;
   color: #fff;
   padding: 10px;
+  padding-bottom: 0;
   text-align: center;
 }
 
 header h1 {
   margin: 10px;
+  margin-bottom: 2px;
+  float: right;
+  transform: translateY(-12px);
 }
 
 header nav {
@@ -3595,10 +3614,12 @@ header nav {
 
 header nav ul {
   list-style: none;
+  float: right;
+  margin-top: 10px;
+  margin-right: 15px;
 }
 
 header nav ul li {
-  display: inline;
   padding-left: 20px;
   padding-right: 20px;
 }
@@ -3647,14 +3668,14 @@ button:active, button:focus {
 
 .logout_button {
   position: fixed;
-  top: 35px;
+  top: 15px;
   left: 25px;
-  padding: 10px;
+  padding: 7px;
   padding-left: 20px;
   padding-right: 20px;
   border-radius: 25px;
   color: #fff;
-  background: red;
+  background: #000;
   z-index: 10;
 }
 
@@ -3663,9 +3684,12 @@ button:active, button:focus {
   padding-left: 20px;
   padding-right: 20px;
   margin-left: 5%;
+  margin-top: 25px;
   border-radius: 25px;
   color: #fff;
   background: green;
+  clear: both;
+  display: block;
 }
 
 .create_post {
@@ -3673,7 +3697,7 @@ button:active, button:focus {
   height: 110vh;
   position: absolute;
   top: 90vh;
-  background: darkviolet;
+  background: #222222;
   z-index: 100;
 }
 
@@ -3683,6 +3707,7 @@ button:active, button:focus {
   height: 10vh;
   text-align: center;
   padding: 3vh;
+  color: #fff;
 }
 
 .search_articles {
@@ -3691,18 +3716,24 @@ button:active, button:focus {
   height: 10vh;
   text-align: center;
   padding: 3vh;
-  background: tomato;
+  background: #fff;
+  border: 1px solid #000;
+  margin-top: 1px;
 }
 
-#post_form_img_url {
-  width: 90%;
+#new_post_form {
+  margin-top: 35px;
+}
+
+.post_input {
+  width: 44%;
   padding: 10px;
   margin-left: 5%;
-  margin-top: 25px;
+  margin-top: 5px;
 }
 
 #post_form_text_area {
-  width: 90%;
+  width: 44%;
   height: 40vh;
   margin: 0 auto;
   margin-left: 5%;
@@ -3725,6 +3756,7 @@ button:active, button:focus {
 .post_img {
   width: 90%;
   margin-left: 5%;
+  margin-top: 25px;
 }
 
 .post_text_content {
