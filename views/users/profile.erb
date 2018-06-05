@@ -1,0 +1,11 @@
+
+
+<h1> <%= @current_user.first_name + " " + @current_user.last_name %> </h1>
+
+</br>
+
+
+<form id="delete_acc_form" action="/users/<%= @current_user.id %>" method="POST">
+    <input name="_method" type="hidden" value="delete" />
+    <button class="create_post_button" type="submit">delete your account</button>
+</form>
