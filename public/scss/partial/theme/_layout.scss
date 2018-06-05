@@ -21,7 +21,7 @@ main {
     top: 0;
     left: 0;
     z-index: -1;
-    background: #444;
+    background: rgb(230, 229, 229);
     overflow: hidden;
 }
 
@@ -33,6 +33,7 @@ main {
     right: 25px;
     z-index: 10;
     background: #999;
+    display: none;
 }
 
 .articles {
@@ -43,6 +44,7 @@ main {
     margin-left: 25%;
     padding: 25px;
     padding-top: 200px;
+    padding-bottom: 200px;
     // background: #000;
     z-index: -1;
     overflow-Y: scroll;
