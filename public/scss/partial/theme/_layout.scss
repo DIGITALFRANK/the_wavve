@@ -17,13 +17,12 @@ main {
 .users {
     width: 25%;
     height: 100%;
-    position: relative;
+    position: fixed;
     top: 0;
     left: 0;
-    padding-left: 25px;
     z-index: 9;
-    // background: rgb(230, 229, 229);
-    overflow: auto;
+    background: rgb(230, 229, 229);
+    overflow: scroll;
 }
 
 .user_info {
@@ -40,7 +39,7 @@ main {
 .articles {
     width: 75%;
     height: 100%;
-    position: relative;
+    position: fixed;
     top: 0;
     margin-left: 25%;
     padding: 25px;

@@ -3540,9 +3540,9 @@ main {
   position: fixed;
   top: 0;
   left: 0;
-  z-index: -1;
+  z-index: 9;
   background: #e6e5e5;
-  overflow: hidden;
+  overflow: scroll;
 }
 
 .user_info {
@@ -3569,6 +3569,63 @@ main {
   overflow-Y: scroll;
 }
 
+button {
+  cursor: pointer;
+  outline: none;
+  border: none;
+}
+
+button:active, button:focus {
+  outline: none;
+  border: none;
+}
+
+.signup {
+  padding: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
+  margin-left: 20px;
+  border-radius: 25px;
+  color: #fff;
+  background: green;
+}
+
+.login {
+  padding: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
+  margin-left: 20px;
+  border-radius: 25px;
+  color: #fff;
+  background: orange;
+}
+
+.logout_button {
+  position: fixed;
+  top: 15px;
+  left: 25px;
+  padding: 7px;
+  padding-left: 20px;
+  padding-right: 20px;
+  border-radius: 25px;
+  color: #fff;
+  background: #000;
+  z-index: 100000;
+}
+
+.create_post_button {
+  padding: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
+  margin-left: 5%;
+  margin-top: 25px;
+  border-radius: 25px;
+  color: #fff;
+  background: green;
+  clear: both;
+  display: block;
+}
+
 body {
   font-family: 'Quicksand', 'helvetica', sans-serif;
 }
@@ -3591,6 +3648,7 @@ header * {
 }
 
 header {
+  z-index: 1000;
   width: 100%;
   position: fixed;
   top: 0;
@@ -3635,61 +3693,14 @@ footer {
   z-index: 1000;
 }
 
-button {
-  cursor: pointer;
-  outline: none;
-  border: none;
+#users_list {
+  list-style: none;
+  margin-top: 100px;
+  margin-left: 30px;
 }
 
-button:active, button:focus {
-  outline: none;
-  border: none;
-}
-
-.signup {
-  padding: 10px;
-  padding-left: 20px;
-  padding-right: 20px;
-  margin-left: 20px;
-  border-radius: 25px;
-  color: #fff;
-  background: green;
-}
-
-.login {
-  padding: 10px;
-  padding-left: 20px;
-  padding-right: 20px;
-  margin-left: 20px;
-  border-radius: 25px;
-  color: #fff;
-  background: orange;
-}
-
-.logout_button {
-  position: fixed;
-  top: 15px;
-  left: 25px;
-  padding: 7px;
-  padding-left: 20px;
-  padding-right: 20px;
-  border-radius: 25px;
-  color: #fff;
-  background: #000;
-  z-index: 10;
-}
-
-.create_post_button {
-  padding: 10px;
-  padding-left: 20px;
-  padding-right: 20px;
-  margin-left: 5%;
-  margin-top: 25px;
-  border-radius: 25px;
-  color: #fff;
-  background: green;
-  clear: both;
-  display: block;
+#users_list li span {
+  margin-top: -10px;
 }
 
 .create_post {
