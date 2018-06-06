@@ -28,6 +28,9 @@
 require 'sinatra'
 require 'sinatra/activerecord'
 
+ActiveRecord::Base.establish_connection(ENV['DATABASE_URL'] || 'postgres://localhost/the_wavve')
+
+
 # models
 require_relative '../models/user'
 require_relative '../models/post'
@@ -43,12 +46,12 @@ require_relative '../models/postssubtags'
 
 
 # live sessions with shotgun, and set explicit views folder, make stylesheet static
-configure do
-    enable :sessions unless test?
-    set :session_secret, "secret"
-    set :views, "./views"
-    set :public_folder, "./public"
-end
+# configure do
+#     enable :sessions unless test?
+#     set :session_secret, "secret"
+#     set :views, "./views"
+#     set :public_folder, "./public"
+# end
 # Proc.new { 'source.css'.join(root, "static") }
 
 
@@ -62,10 +65,11 @@ end
 
 
 
-class App < Sinatra::Base
+# class App < Sinatra::Base
 
 
     configure do
+        enable :sessions unless test?
         set :session_secret, "secret"
         set :views, "./views"
         set :public_folder, "./public"
@@ -292,7 +296,7 @@ class App < Sinatra::Base
     get '/post/:id/edit' do 
         @post_id = params[:id]
         @post = Post.find(params[:id])
-        erb :edit_post
+        erb :"posts/edit"
     end
 
     put '/post/:id' do
@@ -306,9 +310,10 @@ class App < Sinatra::Base
     delete '/post/:id' do
         @post_id = params[:id]
         Post.destroy(@post_id)
+        redirect "/your_wavve"
     end
 
 
 
-end
+# end
 
