@@ -146,7 +146,7 @@ end
 
 
 
-get '/the_wavve' do
+get '/your_wavve' do
     # make all users available globally
     @users = User.all
     
@@ -156,7 +156,7 @@ get '/the_wavve' do
         # session[:id] = @current_user.id
 
             erb :loggedin_layout do
-              erb :"users/the_wavve"
+              erb :"users/your_wavve"
             end
 
 
@@ -171,7 +171,9 @@ get '/the_wavve/:id' do
     @users = User.all
     
     @current_user = User.find_by(id: session[:id])
-    @user_posts = Post.where(:user_id => params[:id])
+    @other_user = User.find_by(id: params[:id])
+    
+    @other_user_posts = Post.where(:user_id => params[:id])
     if @current_user != nil
         # session[:id] = @current_user.id
 
