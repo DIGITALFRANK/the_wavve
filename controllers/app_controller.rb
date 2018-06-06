@@ -60,249 +60,255 @@ end
 ##################### APPLICATION ROUTES ######################
 
 
-# landing
-get '/' do
-    # make all users available globally
-    @users = User.all
-    @design_users = User.where("industry = 'design'")
-    @tech_users = User.where("industry = 'tech'")
-    @advertising_users = User.where(["industry = :industry", { industry: "Advertising" }])
 
-    puts '***********'
-    puts @advertising_users.inspect.inspect
-    puts '$$$$$$$$'
 
-    @users.each do |user| 
-        puts user.first_name    
+class App < Sinatra::Base
+
+
+    configure do
+        set :session_secret, "secret"
+        set :views, "./views"
+        set :public_folder, "./public"
+    end
+
+
+    # landing
+    get '/' do
+        # make all users available globally
+        @users = User.all
+        @design_users = User.where("industry = 'design'")
+        @tech_users = User.where("industry = 'tech'")
+        @advertising_users = User.where(["industry = :industry", { industry: "Advertising" }])
+
+        # puts '***********'
+        # puts @advertising_users.inspect.inspect
+        # puts '$$$$$$$$'
+
+        # @users.each do |user| 
+        #     puts user.first_name    
+        # end 
+
+        # @advertising_users.each do |user| 
+        #     puts user.first_name  
+        #     puts user.last_name  
+        #     puts user.email  
+        # end 
+
+
+        if session[:id] != nil
+            erb :"users/home"
+        else
+            erb :"users/index"
+        end
     end 
 
-    @advertising_users.each do |user| 
-        puts user.first_name  
-        puts user.last_name  
-        puts user.email  
+
+    
+    # users
+
+    get '/home' do
+        # make all users available globally
+        @users = User.all
+
+        @current_user = User.find_by(id: session[:id])
+        if @current_user != nil
+            # session[:id] = @current_user.id
+
+                erb :loggedin_layout do
+                erb :"users/home"
+                end
+
+
+            # erb :"users/home"
+        else   
+            erb :"sessions/login"
+        end
+    end 
+
+    get '/profile' do
+        # make all users available globally
+        @users = User.all
+        
+        @current_user = User.find_by(id: session[:id])
+        if @current_user != nil
+            # session[:id] = @current_user.id
+
+                erb :loggedin_layout do
+                erb :"users/profile"
+                end
+
+
+            # erb :"users/home"
+        else   
+            erb :"sessions/login"
+        end
+    end 
+
+    delete '/users/:id' do |id|
+        @user_id = params[:id]
+        User.destroy(@user_id)
+        redirect "sessions/login"
+    end
+
+    get '/your_wavve' do
+        # make all users available globally
+        @users = User.all
+        
+        @current_user = User.find_by(id: session[:id])
+        @user_posts = Post.where(:user_id => @current_user.id)
+        if @current_user != nil
+            # session[:id] = @current_user.id
+
+                erb :loggedin_layout do
+                erb :"users/your_wavve"
+                end
+
+
+            # erb :"users/home"
+        else   
+            erb :"sessions/login"
+        end
+    end 
+
+    get '/the_wavve/:id' do
+        # make all users available globally
+        @users = User.all
+        
+        @current_user = User.find_by(id: session[:id])
+        @other_user = User.find_by(id: params[:id])
+        
+        @other_user_posts = Post.where(:user_id => params[:id])
+        if @current_user != nil
+            # session[:id] = @current_user.id
+
+                erb :loggedin_layout do
+                erb :"users/the_wavve"
+                end
+
+
+            # erb :"users/home"
+        else   
+            erb :"sessions/login"
+        end
     end 
 
 
-    if session[:id] != nil
-        erb :"users/home"
-    else
-        erb :"users/index"
-    end
-end 
 
 
+    # (C) create new users
+    get '/registration/signup' do
+        erb :"registration/signup"
+    end 
 
-
-
-
-
-
-# users
-
-get '/home' do
-    # make all users available globally
-    @users = User.all
-
-    @current_user = User.find_by(id: session[:id])
-    if @current_user != nil
-        # session[:id] = @current_user.id
-
-            erb :loggedin_layout do
-              erb :"users/home"
+    post '/registration/new' do
+        # make all users available globally
+        @users = User.all
+        
+        if params[:first_name] && params[:last_name] && params[:industry] && params[:title] && params[:email] && params[:password] != ''
+            User.create(first_name: params[:first_name], last_name: params[:last_name], industry: params[:industry], title: params[:title], email: params[:email], password: params[:password])
+            @current_user = User.find_by(email: params[:email], password: params[:password])
+            if @current_user != nil
+                session[:id] = @current_user.id
+                erb :loggedin_layout do
+                    erb :"users/home"
+                end
+            else   
+                erb :"registration/signup"
             end
-
-
-        # erb :"users/home"
-    else   
-        erb :"sessions/login"
+        else
+            erb :"registration/signup"
+        end
     end
-end 
-
-get '/profile' do
-    # make all users available globally
-    @users = User.all
-    
-    @current_user = User.find_by(id: session[:id])
-    if @current_user != nil
-        # session[:id] = @current_user.id
-
-            erb :loggedin_layout do
-              erb :"users/profile"
-            end
 
 
-        # erb :"users/home"
-    else   
+
+    # (R) read - user profile & posts feed - logout button
+    get '/sessions/login' do
         erb :"sessions/login"
-    end
-end 
+    end 
 
-delete '/users/:id' do |id|
-    @user_id = params[:id]
-    User.destroy(@user_id)
-    redirect "sessions/login"
-end
+    post '/user/logged/in' do
+        # make all users available globally
+        @users = User.all
+        
 
-
-
-
-get '/your_wavve' do
-    # make all users available globally
-    @users = User.all
-    
-    @current_user = User.find_by(id: session[:id])
-    @user_posts = Post.where(:user_id => @current_user.id)
-    if @current_user != nil
-        # session[:id] = @current_user.id
-
-            erb :loggedin_layout do
-              erb :"users/your_wavve"
-            end
-
-
-        # erb :"users/home"
-    else   
-        erb :"sessions/login"
-    end
-end 
-
-get '/the_wavve/:id' do
-    # make all users available globally
-    @users = User.all
-    
-    @current_user = User.find_by(id: session[:id])
-    @other_user = User.find_by(id: params[:id])
-    
-    @other_user_posts = Post.where(:user_id => params[:id])
-    if @current_user != nil
-        # session[:id] = @current_user.id
-
-            erb :loggedin_layout do
-              erb :"users/the_wavve"
-            end
-
-
-        # erb :"users/home"
-    else   
-        erb :"sessions/login"
-    end
-end 
-
-
-
-
-# (C) create new users
-get '/registration/signup' do
-    erb :"registration/signup"
-end 
-
-post '/registration/new' do
-    # make all users available globally
-    @users = User.all
-    
-    if params[:first_name] && params[:last_name] && params[:industry] && params[:title] && params[:email] && params[:password] != ''
-        User.create(first_name: params[:first_name], last_name: params[:last_name], industry: params[:industry], title: params[:title], email: params[:email], password: params[:password])
         @current_user = User.find_by(email: params[:email], password: params[:password])
         if @current_user != nil
             session[:id] = @current_user.id
-            erb :loggedin_layout do
+
+                erb :loggedin_layout do
                 erb :"users/home"
-            end
+                end
+
+
+            # erb :"users/home"
         else   
-            erb :"registration/signup"
+            erb :"sessions/login"
         end
-    else
-        erb :"registration/signup"
     end
-end
 
-
-
-# (R) read - user profile & posts feed - logout button
-get '/sessions/login' do
-    erb :"sessions/login"
-end 
-
-post '/user/logged/in' do
-    # make all users available globally
-    @users = User.all
-    
-
-    @current_user = User.find_by(email: params[:email], password: params[:password])
-    if @current_user != nil
-        session[:id] = @current_user.id
-
-            erb :loggedin_layout do
-              erb :"users/home"
-            end
-
-
-        # erb :"users/home"
-    else   
-        erb :"sessions/login"
+    post '/user/logged/out' do
+        session.clear
+        redirect "/"
     end
-end
-
-post '/user/logged/out' do
-    session.clear
-    redirect "/"
-end
 
 
 
 
 
-# (R) read specific post
+    # (R) read specific post
 
-get '/posts/:id' do 
-    @post = Post.find(params[:id])
-    erb :"posts/post"
-end
-
-
-
-
-# (C) create new posts
-
-post '/post/new' do
-    # make all users available globally
-    @users = User.all
-    
-
-    @post = Post.create(img_url: params[:img_url], title: params[:title], subtitle: params[:subtitle], text_content: params[:text_content], user_id: session[:id])
-    
-    puts session[:id]
-
-    erb :loggedin_layout do
+    get '/posts/:id' do 
+        @post = Post.find(params[:id])
         erb :"posts/post"
     end
 
-    # redirect "posts/#{@post.id}"
-    redirect "/your_wavve"
+
+
+
+    # (C) create new posts
+
+    post '/post/new' do
+        # make all users available globally
+        @users = User.all
+        
+
+        @post = Post.create(img_url: params[:img_url], title: params[:title], subtitle: params[:subtitle], text_content: params[:text_content], user_id: session[:id])
+        
+        puts session[:id]
+
+        erb :loggedin_layout do
+            erb :"posts/post"
+        end
+
+        # redirect "posts/#{@post.id}"
+        redirect "/your_wavve"
+    end
+
+
+
+
+    # (U) update post using a POST method form  => check erb file
+    get '/post/:id/edit' do 
+        @post_id = params[:id]
+        @post = Post.find(params[:id])
+        erb :edit_post
+    end
+
+    put '/post/:id' do
+        @post = Post.find(params[:id])
+        @post.update(img_url: params[:img_url], text_content: params[:text_content])
+    end
+
+
+
+    # (D) Delete post
+    delete '/post/:id' do
+        @post_id = params[:id]
+        Post.destroy(@post_id)
+    end
+
+
+
 end
-
-
-
-
-# (U) update post using a POST method form  => check erb file
-get '/post/:id/edit' do 
-    @post_id = params[:id]
-    @post = Post.find(params[:id])
-    erb :edit_post
-end
-
-put '/post/:id' do
-    @post = Post.find(params[:id])
-    @post.update(img_url: params[:img_url], text_content: params[:text_content])
-end
-
-
-
-# (D) Delete post
-delete '/post/:id' do
-    @post_id = params[:id]
-    Post.destroy(@post_id)
-end
-
-
 
