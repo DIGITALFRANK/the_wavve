@@ -1,10 +1,10 @@
 
-<h1>Your Wavve</h1>
+<h1> <%= @other_user.first_name + " " + @other_user.last_name %>'s Wavve</h1>
 
 </br>
 
 <ul>
-    <% @user_posts.each do |post| %>
+    <% @other_user_posts.each do |post| %>
         <li> <a href="/posts/<%= post.id %>"> <%= post.title %> </a></li>
     <% end %>
 </ul>

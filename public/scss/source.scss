@@ -4,10 +4,11 @@
 
 @import "partial/theme/layout";
 @import "partial/theme/colors";
+@import "partial/theme/buttons";
 @import "partial/theme/typography";
 
 @import "partial/modules/header";
 @import "partial/modules/footer";
-@import "partial/modules/buttons";
+@import "partial/modules/sidebar";
 @import "partial/modules/create_post";
 @import "partial/modules/post";

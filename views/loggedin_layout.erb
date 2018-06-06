@@ -6,7 +6,22 @@
 </div>
 
 <div class="user_info">
+    <% @current_user.first_name %>
 </div>
+
+ <header>
+    <h1>vv</h1>
+    <nav>
+        <ul class="nav_links">
+            <li><a href="/home">home</a></li>
+            <li><a href="/profile">profile</a></li>
+            <li><a href="/your_wavve">your wavve</a></li>
+            <li><a href="/design">design</a></li>
+            <li><a href="/tech">tech</a></li>
+            <li><a href="/advertising">advertising</a></li>
+        </ul>
+    </nav>
+</header>
 
 <aside class="users">
 </br>
@@ -18,9 +33,10 @@ wtf
     <ul id="users_list">
         <% @users.each do |user| %>
             <li>
-                <a href=""><%= user.first_name + " " + user.last_name %> </a>
-                </br>
+                <a href="/the_wavve/<%= user.id %>"><h5> <%= user.first_name + " " + user.last_name %> </h5></a>
                 <span> <%= user.industry %>  </span>
+                </br>
+                </br>
             </li>
         <% end %>
     </ul>
