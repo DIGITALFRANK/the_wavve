@@ -277,7 +277,8 @@ post '/post/new' do
         erb :"posts/post"
     end
 
-    redirect "posts/#{@post.id}"
+    # redirect "posts/#{@post.id}"
+    redirect "/your_wavve"
 end
 
 
