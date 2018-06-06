@@ -2,4 +2,4 @@
 
 
 require './controllers/app_controller'  
-run App
+run Sinatra::Application
